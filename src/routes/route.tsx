@@ -5,11 +5,8 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Phone from "../pages/Phone";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import CreateStudent from "../pages/admin/CreateStudent";
-import CreateAdmin from "../pages/admin/CreateAdmin";
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import { adminPaths } from "./admin.routes";
+
+import {  adminRoutes } from "./admin.routes";
 
 const router = createBrowserRouter([
   {
@@ -35,17 +32,17 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <App />,
-    children: adminPaths,
+    children: adminRoutes,
   },
   {
     path: "/faculty",
     element: <App />,
-    children: adminPaths,
+    children: adminRoutes,
   },
   {
     path: "/student",
     element: <App />,
-    children: adminPaths,
+    children: adminRoutes,
   },
 
   {

@@ -1,40 +1,41 @@
 import { Layout, Menu, MenuProps } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
+import { adminSidebarItems } from "../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items: MenuProps["items"] = [
-  {
-    key: "Dashboard",
-    label: <NavLink to={'/admin/dashboard'}>Dashboard</NavLink>,
-  },
-  {
-    key: "User Management",
-    label: "User Management",
-    children: [
-      {
-        key: "Create Admin",
-        label: <NavLink to={'/admin/createadmin'}>Create Admin</NavLink>,
-      },
-      {
-        key: "Create Faculty",
-        label: <NavLink to={'/admin/createfaculty'}>Create Faculty</NavLink>,
-      },
-      {
-        key: "Create Student",
-        label: <NavLink to={'/admin/createstudent'}>Create Student</NavLink>,
-      },
-    ],
-  },
-  {
-    key: "asdfh",
-    label: "Professor",
-  },
-  {
-    key: "asdfj",
-    label: "Dean",
-  },
-];
+// const items: MenuProps["items"] = [
+//   {
+//     key: "Dashboard",
+//     label: <NavLink to={'/admin/dashboard'}>Dashboard</NavLink>,
+//   },
+//   {
+//     key: "User Management",
+//     label: "User Management",
+//     children: [
+//       {
+//         key: "Create Admin",
+//         label: <NavLink to={'/admin/createadmin'}>Create Admin</NavLink>,
+//       },
+//       {
+//         key: "Create Faculty",
+//         label: <NavLink to={'/admin/createfaculty'}>Create Faculty</NavLink>,
+//       },
+//       {
+//         key: "Create Student",
+//         label: <NavLink to={'/admin/createstudent'}>Create Student</NavLink>,
+//       },
+//     ],
+//   },
+//   {
+//     key: "asdfh",
+//     label: "Professor",
+//   },
+//   {
+//     key: "asdfj",
+//     label: "Dean",
+//   },
+// ];
 const MainLayout = () => {
   return (
     <Layout style={{ height: "100vh" }}>
@@ -63,7 +64,7 @@ const MainLayout = () => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={["4"]}
-          items={items}
+          items={adminSidebarItems}
         />
       </Sider>
       <Layout>
