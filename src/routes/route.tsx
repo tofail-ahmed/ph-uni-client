@@ -6,6 +6,9 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Phone from "../pages/Phone";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import CreateStudent from "../pages/admin/CreateStudent";
+import AdminLayout from "../components/layout/AdminLayout";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,25 @@ const router = createBrowserRouter([
             element: <Phone />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <App />,
+    children: [
+      {
+       index:true,
+        element: <AdminDashboard />,
+      },
+      {
+       path:"dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "createstudent",
+        element: <CreateStudent />,
+       
       },
     ],
   },
