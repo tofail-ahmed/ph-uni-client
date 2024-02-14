@@ -3,7 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { adminSidebarItems } from "../../routes/admin.routes";
 
 const { Header, Content, Footer, Sider } = Layout;
-
+//! hardcoded------------
 // const items: MenuProps["items"] = [
 //   {
 //     key: "Dashboard",

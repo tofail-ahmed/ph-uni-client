@@ -56,7 +56,7 @@ export const adminRoutes = adminPaths.reduce((acc: IRoute[], item) => {
       });
     });
   }
-  return acc; // Ensure to return the accumulator after the operations
+  return acc; 
 }, []);
 
 export const adminSidebarItems = adminPaths.reduce((acc:ISidebarItem[], item) => {
@@ -78,7 +78,11 @@ export const adminSidebarItems = adminPaths.reduce((acc:ISidebarItem[], item) =>
   }
   return acc;
 }, []);
-// export const adminPaths=[
+
+
+
+//!hardcoded--------------
+// export const adminRoutes=[
       // {
       //  index:true,
       //   element: <AdminDashboard />,
