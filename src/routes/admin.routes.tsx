@@ -2,15 +2,10 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
-// interface IRoute {
-//   path: string;
-//   element: ReactNode;
-// }
-// interface ISidebarItem {
-//   key: string;
-//   label: ReactNode;
-//   children?: ISidebarItem[];
-// }
+
+
+
+
 export const adminPaths = [
   {
     name: "Dashboard",
