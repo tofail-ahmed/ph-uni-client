@@ -5,7 +5,7 @@ import {  Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 //! hardcoded------------
 // const items: MenuProps["items"] = [
