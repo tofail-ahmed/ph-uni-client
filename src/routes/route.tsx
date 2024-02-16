@@ -8,6 +8,8 @@ import Phone from "../pages/Phone";
 
 import {   adminPaths } from "./admin.routes";
 import { routeGenerator } from "../utils/routeGenerator";
+import { facultyPaths } from "./faculty.route";
+import { studentPaths } from "./student.route";
 
 const router = createBrowserRouter([
   {
@@ -38,12 +40,12 @@ const router = createBrowserRouter([
   {
     path: "/faculty",
     element: <App />,
-    children: routeGenerator(adminPaths),
+    children: routeGenerator(facultyPaths),
   },
   {
     path: "/student",
     element: <App />,
-    children: routeGenerator(adminPaths),
+    children: routeGenerator(studentPaths),
   },
 
   {
