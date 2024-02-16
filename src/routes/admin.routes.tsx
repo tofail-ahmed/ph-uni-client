@@ -4,6 +4,8 @@ import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
 
 
+
+
 export const adminPaths = [
   {
     name: "Dashboard",

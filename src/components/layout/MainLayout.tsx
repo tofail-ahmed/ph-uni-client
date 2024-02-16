@@ -1,9 +1,12 @@
 import { Layout } from "antd";
 import {  Outlet } from "react-router-dom";
 
+
+
 import Sidebar from "./Sidebar";
 
 const { Header, Content, Footer } = Layout;
+
 //! hardcoded------------
 // const items: MenuProps["items"] = [
 //   {
@@ -40,7 +43,10 @@ const { Header, Content, Footer } = Layout;
 const MainLayout = () => {
   return (
     <Layout style={{ height: "100vh" }}>
+
+
     <Sidebar/>
+
       <Layout>
         <Header style={{ padding: 0 }} />
         <Content style={{ margin: "24px 16px 0" }}>
@@ -54,9 +60,7 @@ const MainLayout = () => {
             <Outlet></Outlet>
           </div>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        
       </Layout>
     </Layout>
   );
