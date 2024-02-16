@@ -1,15 +1,7 @@
-import { ReactNode } from "react";
+import { IRoute, IUserPath } from "../types/types";
 
-interface IRoute {
-  path: string;
-  element: ReactNode;
-}
-interface IUserPath {
-  name: string;
-  path?: string;
-  element?: ReactNode;
-  children?: IUserPath[];
-}
+
+
 export const routeGenerator = (items: IUserPath[]) => {
   const routes = items.reduce((acc: IRoute[], item) => {
     if (item.path && item.element) {

@@ -6,7 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Phone from "../pages/Phone";
 
-import {  admin, adminPaths, adminPathsPaths } from "./admin.routes";
+import {   adminPaths } from "./admin.routes";
 import { routeGenerator } from "../utils/routeGenerator";
 
 const router = createBrowserRouter([
