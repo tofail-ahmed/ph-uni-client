@@ -1,12 +1,13 @@
 import MainLayout from "./components/layout/MainLayout"
+import ProtectedRoute from "./components/layout/ProtectedRoute"
 
 
 
 function App() {
-console.log("error")
+// console.log("error")
   return (
     <>
-  <MainLayout/>
+  <ProtectedRoute><MainLayout/></ProtectedRoute>
     </>
   )
 }
