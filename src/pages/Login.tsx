@@ -1,9 +1,8 @@
 import { Button } from 'antd';
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import { useAppDispatch } from '../redux/hooks';
-import { setUser } from '../redux/features/auth/authSlice';
+import { IUser, setUser } from '../redux/features/auth/authSlice';
 import { verifyToken } from '../utils/verifyToken';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'sonner';
@@ -17,10 +16,10 @@ const Login = () => {
       password: "admin123",
     },
   });
-  const [login, { data, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
   // console.log(data)
   // console.log(error)
-  const onSubmit = async (data) => {
+  const onSubmit = async (data :FieldValues) => {
     // console.log(data);
     const toastID=toast.loading("User logging in")
     try{
@@ -29,7 +28,7 @@ const Login = () => {
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
-      const user = verifyToken(res.data.accessToken);
+      const user = verifyToken(res.data.accessToken) as IUser;
       dispatch(
         setUser({
           user: user,
