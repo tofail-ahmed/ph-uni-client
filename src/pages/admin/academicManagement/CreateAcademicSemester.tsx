@@ -6,6 +6,7 @@ import PHSelect from '../../../components/form/PHSelect'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { academicsemesterSchema } from '../../../Schemas/academicManagement.schema';
+import { useAddAcademicSemesterMutation } from "../../../redux/features/academicSemester/academicSemesterApi";
 export const nameOptions = [
   {
     value: "01",
@@ -34,44 +35,61 @@ export const monthNames = [
   "November",
   "December",
 ];
-export const monthOptions = monthNames.map((month) =>({
-  value:month,
-  label:month
-}))
-const currentYear=new Date().getFullYear();
-export const yearOptions=[0,1,2,3,4].map(number=>({
-  value:String(currentYear+number),
-  label:String(currentYear+number),
-}))
-console.log(yearOptions)
+export const monthOptions = monthNames.map((month) => ({
+  value: month,
+  label: month,
+}));
+const currentYear = new Date().getFullYear();
+export const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
+  value: String(currentYear + number),
+  label: String(currentYear + number),
+}));
+// console.log(yearOptions)
 const CreateAcademicSemester = () => {
-      const onSubmit:SubmitHandler<FieldValues>=(data)=>{
-        //! ---> console.log(data.name) //!--->??
-        const name=nameOptions[Number(data?.name)-1]?.label;
-const semesterData={
-  name,
-  code:data.name,
-  year:data.year,
-  startMonth:data.startMonth,
-  endMonth:data.endMonth
-}
-console.log(semesterData)
-      }
-      
+  const [addAcademicSemester] = useAddAcademicSemesterMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+   
+    const name = nameOptions[Number(data?.name) - 1]?.label;
+    const semesterData = {
+      name,
+      code: data.name,
+      year: data.year,
+      startMonth: data.startMonth,
+      endMonth: data.endMonth,
+    };
+    try {
+      console.log(semesterData);
+      const res=await addAcademicSemester(semesterData);
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
-   <Flex justify='center' align='center'>
-     <Col span={6}>
-    <PHForm onSubmit={onSubmit} resolver={zodResolver(academicsemesterSchema)}>
-     
-      <PHSelect label="name" name={"name"} options={nameOptions}></PHSelect>
-      <PHSelect label="Year" name={"year"} options={yearOptions}></PHSelect>
-      <PHSelect label="start Month" name={"startMonth"} options={monthOptions}></PHSelect>
-      <PHSelect label="Enbd Month" name={"endMonth"} options={monthOptions}></PHSelect>
-      <Button htmlType='submit' >Submit</Button>
-    </PHForm>
-    </Col>
-   </Flex>
-  )
-}
+    <Flex justify="center" align="center">
+      <Col span={6}>
+        <PHForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(academicsemesterSchema)}
+        >
+          <PHSelect label="name" name={"name"} options={nameOptions}></PHSelect>
+          <PHSelect label="Year" name={"year"} options={yearOptions}></PHSelect>
+          <PHSelect
+            label="start Month"
+            name={"startMonth"}
+            options={monthOptions}
+          ></PHSelect>
+          <PHSelect
+            label="Enbd Month"
+            name={"endMonth"}
+            options={monthOptions}
+          ></PHSelect>
+          <Button htmlType="submit">Submit</Button>
+        </PHForm>
+      </Col>
+    </Flex>
+  );
+};
 
 export default CreateAcademicSemester
