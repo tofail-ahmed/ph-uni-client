@@ -7,17 +7,22 @@ import {
   useForm,
 } from "react-hook-form";
 interface IFormConfig{
-  defaultValues?:Record<string,any>
+  defaultValues?:Record<string,any>;
+  resolver?:any;
+
 }
 interface IFormProps extends IFormConfig {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
 } 
 
-const PHForm = ({ onSubmit, children, defaultValues }: IFormProps) => {
+const PHForm = ({ onSubmit, children, defaultValues,resolver }: IFormProps) => {
   const formConfig:IFormConfig = {};
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
+  }
+  if (resolver) {
+    formConfig["resolver"] = resolver;
   }
 
   const methods = useForm(formConfig);
