@@ -9,11 +9,11 @@ interface DataType {
 
 const AcademicSemester = () => {
   const { data: semesterData } = useGetAllSemestersQuery(undefined);
-  console.log(semesterData);
-  const passYear = (year) => {
+  // console.log(semesterData);
+  const passYear = (year:string) => {
     return parseInt(year)+4;
   };
-  const tableData = semesterData?.data.map(
+  const tableData = semesterData?.data?.map(
     ({ _id, name, year, endMonth, startMonth }) => ({
       _id,
       name,
@@ -75,6 +75,7 @@ const AcademicSemester = () => {
     sorter,
     extra
   ) => {
+    console.log(filters)
     console.log("params", pagination, filters, sorter, extra);
   };
   return <Table columns={columns} dataSource={tableData} onChange={onChange} />;
