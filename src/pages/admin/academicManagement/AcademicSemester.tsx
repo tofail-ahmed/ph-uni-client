@@ -1,106 +1,83 @@
 import { Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi"
+import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
 
 const AcademicSemester = () => {
-  // const {data:semesterData}=useGetAllSemestersQuery(undefined)
-  // console.log(data)
-  interface DataType {
-    key: React.Key;
-    name: string;
-    age: number;
-    address: string;
-  }
-  
+  const { data: semesterData } = useGetAllSemestersQuery(undefined);
+  console.log(semesterData);
+  const passYear = (year) => {
+    return parseInt(year)+4;
+  };
+  const tableData = semesterData?.data.map(
+    ({ _id, name, year, endMonth, startMonth }) => ({
+      _id,
+      name,
+      year,
+      endMonth,
+      startMonth,
+
+      startMonthYear: `${startMonth} ${year}`,
+      endMonthYear: `${endMonth} ${passYear(year)}`,
+    })
+  );
   const columns: TableColumnsType<DataType> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
+      title: "Name",
+      dataIndex: "name",
       filters: [
         {
-          text: 'Joe',
-          value: 'Joe',
+          text: "Joe",
+          value: "Joe",
         },
         {
-          text: 'Jim',
-          value: 'Jim',
+          text: "Jim",
+          value: "Jim",
         },
         {
-          text: 'Submenu',
-          value: 'Submenu',
+          text: "Submenu",
+          value: "Submenu",
           children: [
             {
-              text: 'Green',
-              value: 'Green',
+              text: "Green",
+              value: "Green",
             },
             {
-              text: 'Black',
-              value: 'Black',
+              text: "Black",
+              value: "Black",
             },
           ],
         },
       ],
-      // specify the condition of filtering result
-      // here is that finding the name started with `value`
-      onFilter: (value: string, record) => record.name.indexOf(value) === 0,
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ['descend'],
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.age - b.age,
+      title: "Year",
+      dataIndex: "year",
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      filters: [
-        {
-          text: 'London',
-          value: 'London',
-        },
-        {
-          text: 'New York',
-          value: 'New York',
-        },
-      ],
-      onFilter: (value: string, record) => record.address.indexOf(value) === 0,
+      title: "Start Month",
+      dataIndex: "startMonthYear",
+    },
+    {
+      title: "End Month",
+      dataIndex: "endMonthYear",
     },
   ];
-  
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park',
-    },
-  ];
-  
-  const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
+
+ 
+  const onChange: TableProps<DataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
   };
-  return (
-    <Table columns={columns} dataSource={data} onChange={onChange} />
-  )
-}
+  return <Table columns={columns} dataSource={tableData} onChange={onChange} />;
+};
 
 export default AcademicSemester
