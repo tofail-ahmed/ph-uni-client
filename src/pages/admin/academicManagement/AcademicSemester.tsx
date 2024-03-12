@@ -1,15 +1,16 @@
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
-export type TTabledata=Pick<TAcademicSemester,"_id"|"name"|"year"|"endMonth"|"startMonth">
+import { TQueryParam } from "../../../types/global";
+export type TTabledata=Pick<TAcademicSemester,"name"|"year"|"endMonth"|"startMonth">
 
 const AcademicSemester = () => {
-  const [params,setParams]=useState([]);
+  const [params,setParams]=useState<TQueryParam[]|undefined>(undefined);
   // const { data: semesterData } = useGetAllSemestersQuery([
   //   {name:"year",value:"2025"}
   // ]);
-  const { data: semesterData } = useGetAllSemestersQuery(params);
+  const { data: semesterData,isFetching } = useGetAllSemestersQuery(params);
   // console.log(semesterData);
   const passYear = (year:string) => {
     return parseInt(year)+4;
@@ -73,16 +74,25 @@ const AcademicSemester = () => {
       title: "End Month",
       dataIndex: "endMonthYear",
     },
+    {
+      title:"Action",
+      key:"X",
+      render:()=>{
+        return <div>
+          <Button>Update</Button>
+        </div>
+      }
+    }
   ];
 
  
   const onChange: TableProps<TTabledata>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
-    const queryParams=[];
+    const queryParams:TQueryParam[]=[];
     if(extra.action==="filter"){
       filters.name?.forEach((item)=>
       queryParams.push({name:"name",value:item}))
@@ -92,7 +102,7 @@ const AcademicSemester = () => {
       console.log(queryParams)
     }
   };
-  return <Table columns={columns} dataSource={tableData} onChange={onChange} />;
+  return <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />;
 };
 
 export default AcademicSemester
