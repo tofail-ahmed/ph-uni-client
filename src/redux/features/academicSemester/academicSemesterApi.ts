@@ -6,12 +6,16 @@ const academicSemesterApi=baseApi.injectEndpoints({
       endpoints: (builder) => ({
             getAllSemesters: builder.query({
               query: (args) => {
-                // const params=new URLSearchParams();
-                // params.append(args[0].name,args[0].value)
+                const params=new URLSearchParams();
+               if(args){
+                args.forEach((item)=>{
+                  params.append(item.name,item.value)
+                })
+               }
                return {
                 url: "/academic-semesters",
                 method: "GET",
-                // params:params,
+                params:params,
             
                }
               },

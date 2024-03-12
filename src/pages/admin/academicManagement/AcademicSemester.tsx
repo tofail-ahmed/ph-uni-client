@@ -1,13 +1,15 @@
 import { Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { useState } from "react";
 export type TTabledata=Pick<TAcademicSemester,"_id"|"name"|"year"|"endMonth"|"startMonth">
 
 const AcademicSemester = () => {
+  const [params,setParams]=useState([]);
   // const { data: semesterData } = useGetAllSemestersQuery([
   //   {name:"year",value:"2025"}
   // ]);
-  const { data: semesterData } = useGetAllSemestersQuery(undefined);
+  const { data: semesterData } = useGetAllSemestersQuery(params);
   // console.log(semesterData);
   const passYear = (year:string) => {
     return parseInt(year)+4;
@@ -30,32 +32,38 @@ const AcademicSemester = () => {
       dataIndex: "name",
       filters: [
         {
-          text: "Joe",
-          value: "Joe",
+          text: "Summer",
+          value: "Summer",
         },
         {
-          text: "Jim",
-          value: "Jim",
+          text: "Autumn",
+          value: "Autumn",
         },
         {
-          text: "Submenu",
-          value: "Submenu",
-          children: [
-            {
-              text: "Green",
-              value: "Green",
-            },
-            {
-              text: "Black",
-              value: "Black",
-            },
-          ],
+          text: "Fall",
+          value: "Fall",
         },
+        
       ],
     },
     {
       title: "Year",
       dataIndex: "year",
+      filters: [
+        {
+          text: "2024",
+          value: "2024",
+        },
+        {
+          text: "2025",
+          value: "2025",
+        },
+        {
+          text: "2026",
+          value: "2026",
+        },
+        
+      ],
     },
     {
       title: "Start Month",
@@ -74,8 +82,15 @@ const AcademicSemester = () => {
     sorter,
     extra
   ) => {
-    console.log({filters,extra})
-    // console.log("params", pagination, filters, sorter, extra);
+    const queryParams=[];
+    if(extra.action==="filter"){
+      filters.name?.forEach((item)=>
+      queryParams.push({name:"name",value:item}))
+      filters.year?.forEach((item)=>
+      queryParams.push({name:"year",value:item}))
+      setParams(queryParams);
+      console.log(queryParams)
+    }
   };
   return <Table columns={columns} dataSource={tableData} onChange={onChange} />;
 };
