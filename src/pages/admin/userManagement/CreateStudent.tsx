@@ -40,7 +40,11 @@ export const studentDummyData={
 
 const CreateStudent = () => {
   const onSubmit:SubmitHandler<FieldValues>=(data)=>{
-    console.log(data)
+    // console.log(data)
+    const formData=new FormData();
+    formData.append("data",JSON.stringify(data));
+    //! for dev phase and checking---
+    console.log(Object.fromEntries(formData))
   }
   return (
     <PHForm onSubmit={onSubmit}>

@@ -26,7 +26,7 @@ const PHForm = ({ onSubmit, children, defaultValues,resolver }: IFormProps) => {
   }
 
   const methods = useForm(formConfig);
-  const submit=(data)=>{
+  const submit:SubmitHandler<FieldValues>=(data)=>{
     onSubmit(data);
     methods.reset();
   }
