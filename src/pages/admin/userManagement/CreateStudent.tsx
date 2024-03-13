@@ -1,7 +1,7 @@
 import { FieldValues, SubmitHandler } from "react-hook-form"
 import PHForm from "../../../components/form/PHForm"
 import PHInput from "../../../components/form/PHInput"
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row,Divider } from "antd";
 
 export const studentDummyData = {
   password: "student123",
@@ -60,6 +60,30 @@ const CreateStudent = () => {
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
               <PHInput type="text" name="name.lastName" label="Last Name" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="gender" label="Gender" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="dateOfBirth" label="Date Of Birth" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="email" label="Email" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="contactNo" label="Contact No" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="emergencyContactNo" label="Emergency Contact No" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="bloogGroup" label="Blood Group" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="presentAddress" label="Present Address" />
+            </Col>
+            <Col span={24} md={{span:12}} lg={{span:8}}>
+              <PHInput type="text" name="permanentAddress" label="Permanent Address" />
             </Col>
           </Row>
           <Button htmlType="submit">Submit</Button>
