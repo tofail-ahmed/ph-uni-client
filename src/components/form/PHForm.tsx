@@ -26,9 +26,13 @@ const PHForm = ({ onSubmit, children, defaultValues,resolver }: IFormProps) => {
   }
 
   const methods = useForm(formConfig);
+  const submit=(data)=>{
+    onSubmit(data);
+    methods.reset();
+  }
   return (
     <FormProvider {...methods}>
-      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>{children}</Form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(submit)}>{children}</Form>
     </FormProvider>
   );
 };
