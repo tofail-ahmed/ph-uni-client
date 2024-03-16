@@ -4,6 +4,7 @@ import PHInput from "../../../components/form/PHInput"
 import { Button, Col, Row,Divider } from "antd";
 import PHSelect from '../../../components/form/PHSelect';
 import PHDatePicker from "../../../components/form/PHDatePicker";
+import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
 const bloodGroups=[
   "A+",
   "A-",
@@ -93,6 +94,12 @@ const studentDefaultValue={
   academicDepartment: "65b00fb010b74fcbd7a25d8e",
 }
 const CreateStudent = () => {
+  const {data:sData,isLoading:sIsLoading}=useGetAllSemestersQuery(undefined);
+  console.log(sData);
+  const semesterOptions=sData?.data?.map((item)=>({
+    value:item._id,
+    label:`${item.name} ${item.year}`
+  }))
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data)
     const formData = new FormData();
@@ -182,6 +189,15 @@ const CreateStudent = () => {
               <PHInput type="text" name="localGuardian.address" label="Address" />
             </Col>
             
+          </Row>
+          <Divider>Academic Info.</Divider>
+          <Row gutter={8}>
+            <Col  span={24} md={{span:12}} lg={{span:8}}>
+            <PHSelect disabled={sIsLoading} options={semesterOptions} name="admissionSemester" label="Admission Semester" />
+            </Col>
+            <Col  span={24} md={{span:12}} lg={{span:8}}>
+            <PHSelect disabled={sIsLoading} options={semesterOptions} name="admissionDepartment" label="Admission Department" />
+            </Col>
           </Row>
           <Button htmlType="submit">Submit</Button>
         </PHForm>
