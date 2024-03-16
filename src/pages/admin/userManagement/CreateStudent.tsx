@@ -2,6 +2,29 @@ import { FieldValues, SubmitHandler } from "react-hook-form"
 import PHForm from "../../../components/form/PHForm"
 import PHInput from "../../../components/form/PHInput"
 import { Button, Col, Row,Divider } from "antd";
+import PHSelect from '../../../components/form/PHSelect';
+const bloodGroups=[
+  "A+",
+  "A-",
+  "B+",
+  "B-",
+  "O+",
+  "O-",
+  "AB-",
+  "AB+"
+];
+const genders=[
+  "male",
+  "female"
+];
+const genderOptions=genders.map((gender)=>({
+  value:gender,
+  label:gender
+}))
+const bloodOptions=bloodGroups.map((bloodGroup)=>({
+  value:bloodGroup,
+  label:bloodGroup
+}))
 
 export const studentDummyData = {
   password: "student123",
@@ -40,7 +63,7 @@ export const studentDummyData = {
 
 const CreateStudent = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // console.log(data)
+    console.log(data)
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
     //! for dev phase and checking---
@@ -62,7 +85,7 @@ const CreateStudent = () => {
               <PHInput type="text" name="name.lastName" label="Last Name" />
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
-              <PHInput type="text" name="gender" label="Gender" />
+              <PHSelect name="gender" options={genderOptions} label="Gender" />
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
               <PHInput type="text" name="dateOfBirth" label="Date Of Birth" />
@@ -81,7 +104,7 @@ const CreateStudent = () => {
               <PHInput type="text" name="emergencyContactNo" label="Emergency Contact No" />
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
-              <PHInput type="text" name="bloogGroup" label="Blood Group" />
+              <PHSelect name="bloogGroup" options={bloodOptions} label="Blood Group" />
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
               <PHInput type="text" name="presentAddress" label="Present Address" />
