@@ -4,7 +4,8 @@ import PHInput from "../../../components/form/PHInput"
 import { Button, Col, Row,Divider } from "antd";
 import PHSelect from '../../../components/form/PHSelect';
 import PHDatePicker from "../../../components/form/PHDatePicker";
-import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
+import { useGetAcademicDepartmentsQuery, useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
+import { useAddStudentMutation } from "../../../redux/features/academicSemester/userManagementApi";
 const bloodGroups=[
   "A+",
   "A-",
@@ -94,18 +95,25 @@ const studentDefaultValue={
   academicDepartment: "65b00fb010b74fcbd7a25d8e",
 }
 const CreateStudent = () => {
+  const [addStudent]=useAddStudentMutation();
   const {data:sData,isLoading:sIsLoading}=useGetAllSemestersQuery(undefined);
   console.log(sData);
+  const {data:dData,isLoading:dIsLoading}=useGetAcademicDepartmentsQuery(undefined,{skip:sIsLoading})
   const semesterOptions=sData?.data?.map((item)=>({
     value:item._id,
     label:`${item.name} ${item.year}`
   }))
+  const departmentOptions=dData?.data?.map((item)=>({
+    value:item._id,
+    label:item.name,
+  }))
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
+    // console.log(data)
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
+    addStudent(formData)
     //! for dev phase and checking---
-    // console.log(Object.fromEntries(formData));
+    console.log(Object.fromEntries(formData));
   };
   return (
     <Row>
@@ -196,7 +204,7 @@ const CreateStudent = () => {
             <PHSelect disabled={sIsLoading} options={semesterOptions} name="admissionSemester" label="Admission Semester" />
             </Col>
             <Col  span={24} md={{span:12}} lg={{span:8}}>
-            <PHSelect disabled={sIsLoading} options={semesterOptions} name="admissionDepartment" label="Admission Department" />
+            <PHSelect disabled={dIsLoading} options={departmentOptions} name="admissionDepartment" label="Admission Department" />
             </Col>
           </Row>
           <Button htmlType="submit">Submit</Button>
