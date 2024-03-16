@@ -3,6 +3,7 @@ import PHForm from "../../../components/form/PHForm"
 import PHInput from "../../../components/form/PHInput"
 import { Button, Col, Row,Divider } from "antd";
 import PHSelect from '../../../components/form/PHSelect';
+import PHDatePicker from "../../../components/form/PHDatePicker";
 const bloodGroups=[
   "A+",
   "A-",
@@ -88,7 +89,7 @@ const CreateStudent = () => {
               <PHSelect name="gender" options={genderOptions} label="Gender" />
             </Col>
             <Col span={24} md={{span:12}} lg={{span:8}}>
-              <PHInput type="text" name="dateOfBirth" label="Date Of Birth" />
+              <PHDatePicker name="dateOfBirth" label="Date Of Birth" />
             </Col>
             </Row>
             <Divider>Contact Info.</Divider>
