@@ -71,7 +71,7 @@ const studentDefaultValue={
   },
   gender: "male",
   // dateOfBirth: "1990-01-01",
-  email: "student2@gmail.com",
+  email: "student123@gmail.com",
   contactNo: "1235678",
   emergencyContactNo: "987-654-3210",
   bloogGroup: "A+",
@@ -97,7 +97,7 @@ const studentDefaultValue={
 const CreateStudent = () => {
   const [addStudent]=useAddStudentMutation();
   const {data:sData,isLoading:sIsLoading}=useGetAllSemestersQuery(undefined);
-  console.log(sData);
+  // console.log(sData);
   const {data:dData,isLoading:dIsLoading}=useGetAcademicDepartmentsQuery(undefined,{skip:sIsLoading})
   const semesterOptions=sData?.data?.map((item)=>({
     value:item._id,
@@ -109,8 +109,12 @@ const CreateStudent = () => {
   }))
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // console.log(data)
+    const studentData={
+      password:"student123",
+      student:data
+    }
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
+    formData.append("data", JSON.stringify(studentData));
     addStudent(formData)
     //! for dev phase and checking---
     console.log(Object.fromEntries(formData));
@@ -204,7 +208,7 @@ const CreateStudent = () => {
             <PHSelect disabled={sIsLoading} options={semesterOptions} name="admissionSemester" label="Admission Semester" />
             </Col>
             <Col  span={24} md={{span:12}} lg={{span:8}}>
-            <PHSelect disabled={dIsLoading} options={departmentOptions} name="admissionDepartment" label="Admission Department" />
+            <PHSelect disabled={dIsLoading} options={departmentOptions} name="academicDepartment" label="Admission Department" />
             </Col>
           </Row>
           <Button htmlType="submit">Submit</Button>
