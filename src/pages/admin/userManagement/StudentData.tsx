@@ -1,110 +1,74 @@
-import { Button, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
-import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { Button, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { TQueryParam } from "../../../types/global";
-export type TTabledata=Pick<TAcademicSemester,"name"|"year"|"endMonth"|"startMonth">
+import { useGetAllStudentsQuery } from "../../../redux/features/academicSemester/userManagementApi";
+import { TStudent } from "../../../types/userManagement.type";
+export type TTabledata = Pick<TStudent, "name" | "id">;
 
 const StudentData = () => {
-  const [params,setParams]=useState<TQueryParam[]|undefined>(undefined);
-  // const { data: semesterData } = useGetAllSemestersQuery([
-  //   {name:"year",value:"2025"}
-  // ]);
-  const { data: semesterData,isFetching } = useGetAllSemestersQuery(params);
-  // console.log(semesterData);
-  const passYear = (year:string) => {
-    return parseInt(year)+4;
-  };
-  const tableData = semesterData?.data?.map(
-    ({ _id, name, year, endMonth, startMonth }) => ({
-      key:_id,
-      name,
-      year,
-      endMonth,
-      startMonth,
+  const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 
-      startMonthYear: `${startMonth} ${year}`,
-      endMonthYear: `${endMonth} ${passYear(year)}`,
-    })
-  );
+  const { data: studentData, isFetching } = useGetAllStudentsQuery(params);
+  // console.log(semesterData);
+
+  const tableData = studentData?.data?.map(({ _id, fullName, id }) => ({
+    key: _id,
+    fullName,
+    id,
+  }));
   const columns: TableColumnsType<TTabledata> = [
     {
       title: "Name",
-      dataIndex: "name",
-      filters: [
-        {
-          text: "Summer",
-          value: "Summer",
-        },
-        {
-          text: "Autumn",
-          value: "Autumn",
-        },
-        {
-          text: "Fall",
-          value: "Fall",
-        },
-        
-      ],
+      key: "fullName",
+      dataIndex: "fullName",
     },
     {
-      title: "Year",
-      dataIndex: "year",
-      filters: [
-        {
-          text: "2024",
-          value: "2024",
-        },
-        {
-          text: "2025",
-          value: "2025",
-        },
-        {
-          text: "2026",
-          value: "2026",
-        },
-        
-      ],
+      title: "Roll No",
+      key: "id",
+      dataIndex: "id",
     },
     {
-      title: "Start Month",
-      dataIndex: "startMonthYear",
+      title: "Action",
+      key: "X",
+      render: () => {
+        return (
+          <Space >
+            <Button>Update</Button>
+            <Button>Details</Button>
+            <Button>Block</Button>
+          </Space>
+        );
+      },
+      width:"10%"
     },
-    {
-      title: "End Month",
-      dataIndex: "endMonthYear",
-    },
-    {
-      title:"Action",
-      key:"X",
-      render:()=>{
-        return <div>
-          <Button>Update</Button>
-        </div>
-      }
-    }
   ];
 
- 
   const onChange: TableProps<TTabledata>["onChange"] = (
     _pagination,
     filters,
     _sorter,
     extra
   ) => {
-    const queryParams:TQueryParam[]=[];
-    if(extra.action==="filter"){
-      filters.name?.forEach((item)=>
-      queryParams.push({name:"name",value:item}))
-      filters.year?.forEach((item)=>
-      queryParams.push({name:"year",value:item}))
+    const queryParams: TQueryParam[] = [];
+    if (extra.action === "filter") {
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: "name", value: item })
+      );
+      filters.year?.forEach((item) =>
+        queryParams.push({ name: "year", value: item })
+      );
       setParams(queryParams);
-      console.log(queryParams)
+      console.log(queryParams);
     }
   };
-  return <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} />;
+  return (
+    <Table
+      loading={isFetching}
+      columns={columns}
+      dataSource={tableData}
+      onChange={onChange}
+    />
+  );
 };
 
-
-
-export default StudentData
+export default StudentData;

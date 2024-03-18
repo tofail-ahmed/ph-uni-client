@@ -30,6 +30,7 @@ const AcademicSemester = () => {
   const columns: TableColumnsType<TTabledata> = [
     {
       title: "Name",
+      key:"name",
       dataIndex: "name",
       filters: [
         {
@@ -49,6 +50,7 @@ const AcademicSemester = () => {
     },
     {
       title: "Year",
+      key:"year",
       dataIndex: "year",
       filters: [
         {
@@ -68,10 +70,12 @@ const AcademicSemester = () => {
     },
     {
       title: "Start Month",
+      key:"startMonthYear",
       dataIndex: "startMonthYear",
     },
     {
       title: "End Month",
+      key:"endMonthYear",
       dataIndex: "endMonthYear",
     },
     {
