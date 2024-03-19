@@ -10,8 +10,11 @@ export interface IUserPath {
   element?: ReactNode;
   children?: IUserPath[];
 }
-export interface ISidebarItem {
-      key: string;
-      label: ReactNode;
-      children?: ISidebarItem[];
-    }
+
+    export type ISidebarItem =
+      | {
+          key: string;
+          label: ReactNode;
+          children?: ISidebarItem[];
+        }
+      | undefined;
