@@ -62,7 +62,6 @@ const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            <h3> The main content should place over there</h3>
             <Outlet></Outlet>
           </div>
         </Content>
